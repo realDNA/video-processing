@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  app:
+    restart: always
+    container_name: dubber_app
+    build:
+      # current directory
+      # if for dev, need to have Dockerfile.dev in folder
+      dockerfile: docker-files/dev/Dockerfile
+      context: .
+    ports:
+      #host to image
+      - "8000:8000"
+    volumes:
+      # map directory to image, which means if something changed in
+      # current directory, it will automatically reflect on image,
+      # don't need to restart docker to get the changes into effect
+      - ./dubber:/dubberRoot/dubber
+    command: >
+      sh -c "python3 manage.py makemigrations &&
+             python3 manage.py migrate &&
+             python3 manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=dubber-postgres
+      - DB_PASS=dubberSupersecretPa55W0rd
+
+    depends_on:
+      - db
+
+  db:
+    restart: always
+    image: postgres:12-alpine
+    container_name: dubber_db
+    ports:
+      #host to image
+      - "5432:5432"
+#    volumes:
+#      - /app_data/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=dubber-postgres
+      - POSTGRES_PASSWORD=dubberSupersecretPa55W0rd

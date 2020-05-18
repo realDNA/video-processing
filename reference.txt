@@ -1,0 +1,13 @@
+python record video: https://realpython.com/playing-and-recording-sound-python/#recording-audio
+merge video and audio: https://superuser.com/questions/277642/how-to-merge-audio-and-video-file-in-ffmpeg
+replace audio stream : ffmpeg -i video.mp4 -i audio.wav -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
+
+manually record audio: https://stackoverflow.com/questions/57008884/how-to-manually-stop-the-audio-recording-in-python
+
+record.js : https://blog.addpipe.com/using-recorder-js-to-capture-wav-audio-in-your-html5-web-site/
+
+remove vocal: https://superuser.com/questions/1408044/isolating-separating-vocals-from-audio-by-ffmpeg
+
+merge two audio:https://superuser.com/questions/1443476/how-to-merge-two-audios-files-by-the-using-ffmpeg-with-special-condition
+
+merge video with sound and audio need to etract audio from video first then merge with second audio, then merge back to video
